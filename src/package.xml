@@ -366,36 +366,124 @@
         <members>noAfflMappings</members>
         <members>noAutoCreateSettings</members>
         <members>noRecSettings</members>
+        <members>preferredBatchDefaultEmail</members>
         <members>stgAccModelTitle</members>
+        <members>stgAccountRecordTypeSupportsHHAddress</members>
+        <members>stgAccountTypesMultiAddressesEnabled</members>
+        <members>stgAccoutTypesWithoutContactsDelete</members>
+        <members>stgAddHispanicOrLatinoPicklistValue</members>
+        <members>stgAddNotHispanicOrLatinoPicklistValue</members>
+        <members>stgAfterRunBackfill</members>
+        <members>stgAutoCompleteEnterChatterGroupName</members>
+        <members>stgAutoCompleteEnterUserName</members>
+        <members>stgAutoCompleteSelectChatterGroup</members>
+        <members>stgAutoCompleteSelectUser</members>
+        <members>stgAutoEnrollment</members>
+        <members>stgAutoEnrollmentRole</members>
+        <members>stgAutoEnrollmentStatus</members>
+        <members>stgBackfillQueuedEmailSent</members>
+        <members>stgBeforeRunBackfill</members>
+        <members>stgBtnAddMapping</members>
+        <members>stgBtnAddSetting</members>
+        <members>stgBtnCancel</members>
+        <members>stgBtnEdit</members>
+        <members>stgBtnRunBackfill</members>
+        <members>stgBtnRunCopy</members>
+        <members>stgBtnSave</members>
+        <members>stgCleanupQueuedEmailSent</members>
+        <members>stgColAccountRecordType</members>
+        <members>stgColActive</members>
+        <members>stgColCampTypes</members>
+        <members>stgColContactPrimaryAfflField</members>
+        <members>stgColFemale</members>
+        <members>stgColField</members>
+        <members>stgColMale</members>
+        <members>stgColNeutral</members>
+        <members>stgColObject</members>
+        <members>stgColRelType</members>
+        <members>stgColRole</members>
+        <members>stgColStatus</members>
+        <members>stgConfirmReadyRunBackfill</members>
+        <members>stgContactMultiAddressesEnabled</members>
         <members>stgCourseDescriptionCopyEmailBody</members>
         <members>stgCourseDescriptionCopyEmailSubject</members>
         <members>stgDefaultFacultyTypeTitle</members>
         <members>stgDefaultStudentTypeTitle</members>
+        <members>stgDeleteRelatedAfflNo</members>
+        <members>stgDeleteRelatedAfflYes</members>
         <members>stgDisableErrorHandlingTitle</members>
+        <members>stgDisablePreferredEmailEnforcement</members>
         <members>stgEnableCourseConnectionsTitle</members>
+        <members>stgErrorNotiTo</members>
         <members>stgErrorNotifRecipientsTitle</members>
+        <members>stgEthnicityRaceBackfillContacts</members>
         <members>stgHelpAccountModel</members>
+        <members>stgHelpAccoutsDeletedIfChildContactsDeleted</members>
         <members>stgHelpAddressAccRecType</members>
         <members>stgHelpContactAddrs</members>
         <members>stgHelpContactPreferredEmail</members>
+        <members>stgHelpCopyQueuedEmailSent</members>
         <members>stgHelpCourseConnBackfillDescription</members>
+        <members>stgHelpCoursesDataMigration</members>
+        <members>stgHelpCoursesDataMigrationCopiesValues</members>
+        <members>stgHelpCoursesDataMigrationDontOverwrite</members>
+        <members>stgHelpCoursesDataMigrationUpdatePageLayouts</members>
         <members>stgHelpDefaultFacultyType</members>
         <members>stgHelpDefaultStudentType</members>
+        <members>stgHelpEnableCourseConnBeforeBackfill</members>
+        <members>stgHelpEnableCourseConnBeforeRecordTypes</members>
         <members>stgHelpEnableCourseConnections</members>
+        <members>stgHelpEnsureExistContactPreferEmail</members>
         <members>stgHelpErrorDisable</members>
         <members>stgHelpErrorNotifyOn</members>
         <members>stgHelpErrorNotifyTo</members>
+        <members>stgHelpEthnicityRaceBackfill</members>
         <members>stgHelpHouseAdmAccountAddressMgmt</members>
         <members>stgHelpHouseholdRecType</members>
+        <members>stgHelpIfCustomValuesEthnicityCopyRace</members>
         <members>stgHelpOrgAccountAddressMgmt</members>
         <members>stgHelpRelAutoCreatedDup</members>
         <members>stgHelpRelReciprocalMethod</members>
+        <members>stgHelpRemoveAllPicklistValuesEthnicityExceptHispanicOrLatino</members>
         <members>stgHelpSimpleAddrChangeIsUpdate</members>
         <members>stgHelpStoreErrorsOn</members>
+        <members>stgHelpUpdateReportIfDependenciesEthnicity</members>
+        <members>stgNewAfflMapping</members>
+        <members>stgOptAllSysAdmins</members>
+        <members>stgOptChatterGroup</members>
+        <members>stgOptSelect</members>
+        <members>stgOptUser</members>
         <members>stgPreferredEmailBatchEmailBody</members>
         <members>stgPreferredEmailBatchEmailSubject</members>
+        <members>stgPreferredEmailDataCleanup</members>
+        <members>stgRunCleanUpEnableFirstTime</members>
+        <members>stgSelectReciType</members>
         <members>stgSendErrorsTitle</members>
+        <members>stgSimpleAddressChangeUpdate</members>
         <members>stgStoreErrorsTitle</members>
+        <members>stgTabAccCont</members>
+        <members>stgTabAffl</members>
+        <members>stgTabAfflMappings</members>
+        <members>stgTabAutocreation</members>
+        <members>stgTabBackfill</members>
+        <members>stgTabCourse</members>
+        <members>stgTabCourseConn</members>
+        <members>stgTabName</members>
+        <members>stgTabPrimaryAfflField</members>
+        <members>stgTabReciprocalSettings</members>
+        <members>stgTabRel</members>
+        <members>stgTabSettings</members>
+        <members>stgTabSystem</members>
+        <members>stgTitleAllowAutocreatedDuplicateRel</members>
+        <members>stgTitleAppwideSettings</members>
+        <members>stgTitleCourseConnectionBackfill</members>
+        <members>stgTitleCoursesDescriptionDataMigration</members>
+        <members>stgTitleHEDAConfig</members>
+        <members>stgTitleHEDASettings</members>
+        <members>stgTitleNewAutocreateSetting</members>
+        <members>stgTitleNewReciSetting</members>
+        <members>stgTitleReciMethod</members>
+        <members>stgToastError</members>
         <name>CustomLabel</name>
     </types>
     <types>
@@ -418,6 +506,39 @@
         <members>Term__c</members>
         <members>Trigger_Handler__c</members>
         <name>CustomObject</name>
+    </types>
+    <types>
+        <members>Account-es</members>
+        <members>Address__c-en_US</members>
+        <members>Address__c-es</members>
+        <members>Affiliation__c-en_US</members>
+        <members>Affiliation__c-es</members>
+        <members>Affl_Mappings__c-en_US</members>
+        <members>Affl_Mappings__c-es</members>
+        <members>Contact-es</members>
+        <members>Course_Enrollment__c-en_US</members>
+        <members>Course_Enrollment__c-es</members>
+        <members>Course_Offering__c-en_US</members>
+        <members>Course_Offering__c-es</members>
+        <members>Course__c-en_US</members>
+        <members>Course__c-es</members>
+        <members>Error__c-en_US</members>
+        <members>Error__c-es</members>
+        <members>Hierarchy_Settings__c-en_US</members>
+        <members>Hierarchy_Settings__c-es</members>
+        <members>Program_Enrollment__c-en_US</members>
+        <members>Program_Enrollment__c-es</members>
+        <members>Relationship_Auto_Create__c-en_US</members>
+        <members>Relationship_Auto_Create__c-es</members>
+        <members>Relationship_Lookup__c-en_US</members>
+        <members>Relationship_Lookup__c-es</members>
+        <members>Relationship__c-en_US</members>
+        <members>Relationship__c-es</members>
+        <members>Term__c-en_US</members>
+        <members>Term__c-es</members>
+        <members>Trigger_Handler__c-en_US</members>
+        <members>Trigger_Handler__c-es</members>
+        <name>CustomObjectTranslation</name>
     </types>
     <types>
         <members>Address__c</members>
@@ -460,6 +581,10 @@
         <members>Trigger_Handler__c.All</members>
         <members>Trigger_Handler__c.All_Main_Fields</members>
         <name>ListView</name>
+    </types>
+    <types>
+        <members>es</members>
+        <name>Translations</name>
     </types>
     <types>
         <members>Relationship__c.Related_Contact_Do_Not_Change</members>
