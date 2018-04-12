@@ -96,19 +96,22 @@ public without sharing class UTIL_CustomSettingsFacade {
 		hs.Household_Addresses_RecType__c = UTIL_Describe.getHhAccRecTypeID();
 		hs.Reciprocal_Method__c = 'List Setting';
         hs.Store_Errors_On__c = true;
-        hs.Error_Notifications_On__c = true;
+        hs.Error_Notifications_On__c = false;
         hs.Error_Notifications_To__c = ERR_Notifier.NotificationOptions.sysAdmins;
         hs.Disable_Error_Handling__c = false;
         hs.Enable_Debug__c = false;
         hs.Affl_ProgEnroll_Del__c = false;
         hs.Affl_ProgEnroll_Del_Status__c = 'Former';
         hs.Async_Error_Check_Last_Run__c = null;
+        hs.Admin_Account_Naming_Format__c = '{!LastName} Administrative Account';
+        hs.Household_Account_Naming_Format__c = '{!LastName} Household';
+        hs.Automatic_Household_Naming__c = false;
     }
 
     /*******************************************************************************************************
     * @description Creates instance of settings to use in tests. It does not insert it, but all other methods will see these settings
     * as the configured settings.
-    * @parameter mySettings Settings instance with the values to set.
+    * @param mySettings Settings instance with the values to set.
     * @return Hierarchy_Settings__c The configured settings.
     **/
     public static Hierarchy_Settings__c getSettingsForTests(Hierarchy_Settings__c mySettings) {
@@ -133,6 +136,8 @@ public without sharing class UTIL_CustomSettingsFacade {
         settings.Faculty_RecType__c = mySettings.Faculty_RecType__c;
         settings.Student_RecType__c = mySettings.Student_RecType__c;
         settings.Disable_Preferred_Email_Enforcement__c = mySettings.Disable_Preferred_Email_Enforcement__c;
+        settings.Household_Account_Naming_Format__c = mySettings.Household_Account_Naming_Format__c;
+        settings.Automatic_Household_Naming__c = mySettings.Automatic_Household_Naming__c;
 
         orgSettings = settings;
         return settings;

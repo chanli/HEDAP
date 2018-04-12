@@ -8,11 +8,6 @@ project:
     git:
         prefix_release: rel/
         repo_url: https://github.com/SalesforceFoundation/HEDAP
-        release_notes:
-            parsers:
-                6:
-                    class_path: cumulusci.tasks.release_notes.parser.GithubLinesParser
-                    title: Testing Notes
     apexdoc:
         homepage: ApexDocContent/homepage.htm
         banner: ApexDocContent/projectheader.htm
@@ -152,6 +147,12 @@ flows:
                     managed: True
                     namespaced_org: True
                     skip_record_types: True
+
+    ci_release:
+        tasks:
+            5:
+                options:
+                    managed: True  
 
     dev_org:
         tasks:

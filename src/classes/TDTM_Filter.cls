@@ -86,7 +86,7 @@ public class TDTM_Filter {
 	        	    filterByRelationship();
 	        	} else { //No need to break down the field condition
 	        	    if(filterField.endsWith('__c')) {
-	        	        fieldName = UTIL_Namespace.StrTokenNSPrefix(filterField); 
+	        	        fieldName = handleNamespace(filterField);
 	        	    } else {
 	        	        fieldName = filterField;
 	        	    }
@@ -100,6 +100,28 @@ public class TDTM_Filter {
     	}
     	return null;
     }
+
+    /*******************************************************************************************************
+    * @description apply the correct namespace of the field
+    * @param filterField the name of the filter
+    * @return String the filter field with correct namespace based on existing filter logic
+    */
+    public String handleNamespace(string filterField) {
+        String theFilter = '';
+        String hedaPrefix = String.isBlank(UTIL_Namespace.getNamespace()) ? '' : (UTIL_Namespace.getNamespace() + '__');
+        //If the filter has the heda namespace, then we need to add heda namespace again. Adding the namespace the second time will break the filter. However, that is the desire behavior here. Because, previously, we allow user to put heda namespace as the prefix of the filter field, but the filter does not work. We want to keep this logic so it will be backward compatible.
+        if(filterField.startsWithIgnoreCase(hedaPrefix)) {
+            theFilter = UTIL_Namespace.StrTokenNSPrefix(filterField);
+        } else {
+            //We should always add HEDA namespace of the field (means system should always use heda field if it exits in heda). Unless,the field does not exists in heda
+            theFilter = UTIL_Namespace.StrTokenNSPrefix(filterField);
+            if(!describeObj.fields.getMap().keySet().contains(theFilter.toLowerCase())) {
+                theFilter = UTIL_Namespace.StrTokenRemoveNSPrefix(theFilter);
+            }
+        }
+
+        return theFilter;
+    }
     
     /*******************************************************************************************************
     * @description Filters newList and oldList based on the value of a related field.
@@ -107,7 +129,6 @@ public class TDTM_Filter {
     */
     private void filterByRelationship() {        
         List<SObject> newListRelatedFields = queryRelatedFields(newList);
-        List<SObject> oldListRelatedFields = queryRelatedFields(oldList);
         
         List<String> filterFullChain = (filterField.split('\\.', 0)); //separate cross object references, i.e. account.name   
         fieldName = filterFullChain[filterFullChain.size() - 1]; //get the field name itself
@@ -129,7 +150,7 @@ public class TDTM_Filter {
         if(field != null) { //the field name is valid for the object at the top of the chain!
             filterValue = getFilter(field);
             UTIL_Debug.debug('****Filter value: ' + filterValue);
-            filterByCondition(newListRelatedFields, oldListRelatedFields);
+            filterByCondition(newListRelatedFields);
         } else {
             addErrorToAll();
         }       
@@ -264,16 +285,37 @@ public class TDTM_Filter {
         fieldName = fromRtoC(fieldName);
         UTIL_Debug.debug('****Parent in getSOField: ' + parentObjectName); 
         UTIL_Debug.debug('****Child in getSOField: ' + fieldName);
+
         try {
-            DescribeSObjectResult objectDescribe = UTIL_Describe.getObjectDescribe(parentObjectName);
-            if(objectDescribe != null) {
-                Map<String, SObjectField> fieldsMap = objectDescribe.fields.getMap();
-                return fieldsMap.get(fieldName);
-            } else {
+            return getSOFieldHelper(parentObjectName, fieldName);
+        } catch(UTIL_Describe.SchemaDescribeException e) {
+            //Fix the relationship filter here (If the parent chain in the relationship includes user's custom object, then the filter does not work)
+            //Example: Say we have a filter Account.MyObj__r.MyField__c on Contact object (MyObj__r and MyField__c are user's object/field)
+            //This filter won't work because fromRtoC method will add namespace to MyObj__r and MyField__c.
+            //Adding extra HEDA namespace to the field (e.g. MyField__c) is ok because objectDescribe.fields.getMap().get(xxx) will ignore extra HEDA namespace
+            //Adding extra HEDA namespace to the object (e.g. MyObj__c) is NOT because UTIL_Describe.getObjectDescribe(xxx) expect the exact api name
+            //The fix here is not ideal but it is safer than making a big change in fromRtoC method that has the risk to break other use cases
+            try {
+                return getSOFieldHelper(UTIL_Namespace.StrTokenRemoveNSPrefix(parentObjectName), fieldName);
+            } catch (UTIL_Describe.SchemaDescribeException ex) {
+                UTIL_Debug.debug('****Invalid object name: ' + parentObjectName);
                 return null;
             }
-        } catch(UTIL_Describe.SchemaDescribeException e) {
-            UTIL_Debug.debug('****Invalid object name: ' + parentObjectName);
+        }
+    }
+
+    /*******************************************************************************************************
+    * @description The helper method that returns the SObjectField based on object name and field name
+    * @param parentObjectName The name of the object containing the field, as a string.
+    * @param fieldName The name of the field we are looking for, as a string.
+    * @return SObjectField The field we are looking for.
+    */
+    private SObjectField getSOFieldHelper(String parentObjectName, String fieldName) {
+        DescribeSObjectResult objectDescribe = UTIL_Describe.getObjectDescribe(parentObjectName);
+        if(objectDescribe != null) {
+            Map<String, SObjectField> fieldsMap = objectDescribe.fields.getMap();
+            return fieldsMap.get(fieldName);
+        } else {
             return null;
         }
     }
@@ -345,7 +387,7 @@ public class TDTM_Filter {
         if(field != null) { //the field name is valid!
             filterValue = getFilter(field);
             UTIL_Debug.debug('****Filter value: ' + filterValue);
-            filterByCondition(null, null);
+            filterByCondition(null);
         } else {
             addErrorToAll();
         }
@@ -371,27 +413,35 @@ public class TDTM_Filter {
             return Date.parse(val);
         } else if(fieldType == DisplayType.Reference) {
             return ID.valueOf(val);
+        } else if(fieldType == DisplayType.CURRENCY) {
+            return Decimal.valueOf(val);
+        } else if(fieldType == DisplayType.INTEGER) {
+            return Integer.valueOf(val);
+        } else if(fieldType == DisplayType.DOUBLE) {
+            return Double.valueOf(val);
+        } else if(fieldType == DisplayType.PERCENT) {
+            return Decimal.valueOf(val);
         } else { //We'll treat everything else as a string, including String, Email, Phone, and Picklist
             return val;
         }
         return null;
     }
-    
+
     /*******************************************************************************************************
     * @description Filters newList and oldList based on the defined filtering criteria. 
     * @param newListRelatedFields A list of records pointing to the same records that are present in newList, 
     * but containing only the fields defined in the query condition. In the same order as newList.
-    * @param oldListRelatedFields A list of records pointing to the same records that are present in oldList, 
-    * but containing only the fields defined in the query condition. In the same order as newList.
     * @return void 
     */
-    private void filterByCondition(List<SObject> newListRelatedFields, List<SObject> oldListRelatedFields) {
+    private void filterByCondition(List<SObject> newListRelatedFields) {
         if(filterObjectChain.size() == 0) { //The field in in the same object the trigger fires on
-	    	filterList(newList, filtered.newList);
-			filterList(oldList, filtered.oldList);	
+            //Only need newList to decide if a record meets trigger handler filter value
+            filterList(newList, newList, filtered.newList);
+            filterList(oldList, newList, filtered.oldList);
         } else { //The field is in a related object
             filterListByRelatedField(newListRelatedFields, newList, filtered.newList);
-            filterListByRelatedField(oldListRelatedFields, oldList, filtered.oldList);
+            //Only need newListRelatedFields to decide if a record meets trigger handler filter value
+            filterListByRelatedField(newListRelatedFields, oldList, filtered.oldList);
         }
     }
     
@@ -445,14 +495,15 @@ public class TDTM_Filter {
     * @description Populates filteredList with the records from listToFilter that don't match the filtering
     * criteria.
     * @param listToFilter The list of records to filter.
+    * @param newList The list of new records to compare with filter value.
     * @param filteredList The resulting filtered list.
     * @return void 
     */
-    private void filterList(List<SObject> listToFilter, List<SObject> filteredList) {
+    private void filterList(List<SObject> listToFilter, List<SObject> newList, List<SObject> filteredList) {
         if(listToFilter != null && listToFilter.size() > 0) {
-            for(SObject o : listToFilter) {
-                if(o.get(fieldName) != filterValue) {
-                    filteredList.add(o);
+            for(integer i=0; i<listToFilter.size();i++) {
+                if(newList[i].get(fieldName) != filterValue) {
+                    filteredList.add(listToFilter[i]);
                 }
             }
         } 

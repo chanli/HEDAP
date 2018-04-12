@@ -125,6 +125,7 @@
         <name>ApexTrigger</name>
     </types>
     <types>
+        <members>CMP_Acc_Naming_Dropdown</members>
         <members>CMP_RecTypes</members>
         <members>CMP_RecTypes_Dropdown</members>
         <members>STG_App</members>
@@ -272,10 +273,13 @@
         <members>Hierarchy_Settings__c.Account_Processor__c</members>
         <members>Hierarchy_Settings__c.Accounts_Addresses_Enabled__c</members>
         <members>Hierarchy_Settings__c.Accounts_to_Delete__c</members>
+        <members>Hierarchy_Settings__c.Admin_Account_Naming_Format__c</members>
+        <members>Hierarchy_Settings__c.Admin_Other_Name_Setting__c</members>
         <members>Hierarchy_Settings__c.Affl_ProgEnroll_Del_Status__c</members>
         <members>Hierarchy_Settings__c.Affl_ProgEnroll_Del__c</members>
         <members>Hierarchy_Settings__c.Allow_AutoCreated_Duplicates__c</members>
         <members>Hierarchy_Settings__c.Async_Error_Check_Last_Run__c</members>
+        <members>Hierarchy_Settings__c.Automatic_Household_Naming__c</members>
         <members>Hierarchy_Settings__c.Contacts_Addresses_Enabled__c</members>
         <members>Hierarchy_Settings__c.Disable_Error_Handling__c</members>
         <members>Hierarchy_Settings__c.Disable_Preferred_Email_Enforcement__c</members>
@@ -284,7 +288,9 @@
         <members>Hierarchy_Settings__c.Error_Notifications_On__c</members>
         <members>Hierarchy_Settings__c.Error_Notifications_To__c</members>
         <members>Hierarchy_Settings__c.Faculty_RecType__c</members>
+        <members>Hierarchy_Settings__c.Household_Account_Naming_Format__c</members>
         <members>Hierarchy_Settings__c.Household_Addresses_RecType__c</members>
+        <members>Hierarchy_Settings__c.Household_Other_Name_Setting__c</members>
         <members>Hierarchy_Settings__c.Reciprocal_Method__c</members>
         <members>Hierarchy_Settings__c.Relationship_Name_Field_Id__c</members>
         <members>Hierarchy_Settings__c.Relationship_Name_Id_Field_Id__c</members>
@@ -335,6 +341,7 @@
         <members>Trigger_Handler__c.Owned_by_Namespace__c</members>
         <members>Trigger_Handler__c.Trigger_Action__c</members>
         <members>Trigger_Handler__c.User_Managed__c</members>
+        <members>Trigger_Handler__c.Usernames_to_Exclude__c</members>
         <name>CustomField</name>
     </types>
     <types>
@@ -356,6 +363,7 @@
         <members>Relationship_Split</members>
         <members>RelationshipsAutoDescription</members>
         <members>RelationshipsLookupDescription</members>
+        <members>acctNamingOther</members>
         <members>addrHhAdmAccountOnly</members>
         <members>addrNotEnabledAccount</members>
         <members>addrNotEnabledContact</members>
@@ -363,9 +371,29 @@
         <members>addrSeasonalPartial</members>
         <members>addrSeasonalPartialYear</members>
         <members>addrValidParentObjects</members>
+        <members>adminAccNameFormat</members>
+        <members>adminAccNameFormatHelpText</members>
         <members>afflNullPointerError</members>
+        <members>duplicateFieldInFilter</members>
+        <members>duplicateWithHEDAField</members>
+        <members>automaticHHNaming</members>
+        <members>automaticHHNamingHelpText</members>
+        <members>defaultNamingConnector</members>
         <members>exceptionRequiredField</members>
         <members>exceptionValidationRule</members>
+        <members>firstNameLastNameAdminACC</members>
+        <members>firstNameLastNameFamily</members>
+        <members>firstNameLastNameHH</members>
+        <members>hhAccNameFormat</members>
+        <members>hhFamily</members>
+        <members>lastNameAdminAcc</members>
+        <members>lastNameFamily</members>
+        <members>lastNameFirstNameAdminAcc</members>
+        <members>lastNameFirstNameFamily</members>
+        <members>lastNameFirstNameHH</members>
+        <members>lastNameHH</members>
+        <members>fieldWithHEDANamespace</members>
+        <members>hhAccNameFormatHelpText</members>
         <members>noAccRecType</members>
         <members>noAfflMappings</members>
         <members>noAutoCreateSettings</members>
@@ -512,36 +540,68 @@
         <name>CustomObject</name>
     </types>
     <types>
+        <members>Account-ca</members>
         <members>Account-es</members>
+        <members>Account-fr</members>
+        <members>Address__c-ca</members>
         <members>Address__c-en_US</members>
         <members>Address__c-es</members>
+        <members>Address__c-fr</members>
+        <members>Affiliation__c-ca</members>
         <members>Affiliation__c-en_US</members>
         <members>Affiliation__c-es</members>
+        <members>Affiliation__c-fr</members>
+        <members>Affl_Mappings__c-ca</members>
         <members>Affl_Mappings__c-en_US</members>
         <members>Affl_Mappings__c-es</members>
+        <members>Affl_Mappings__c-fr</members>
+        <members>Contact-ca</members>
         <members>Contact-es</members>
-        <members>Course_Enrollment__c-en_US</members>
-        <members>Course_Enrollment__c-es</members>
-        <members>Course_Offering__c-en_US</members>
-        <members>Course_Offering__c-es</members>
+        <members>Contact-fr</members>
+        <members>Course__c-ca</members>
         <members>Course__c-en_US</members>
         <members>Course__c-es</members>
+        <members>Course__c-fr</members>
+        <members>Course_Enrollment__c-ca</members>
+        <members>Course_Enrollment__c-en_US</members>
+        <members>Course_Enrollment__c-es</members>
+        <members>Course_Enrollment__c-fr</members>
+        <members>Course_Offering__c-ca</members>
+        <members>Course_Offering__c-en_US</members>
+        <members>Course_Offering__c-es</members>
+        <members>Course_Offering__c-fr</members>
+        <members>Error__c-ca</members>
         <members>Error__c-en_US</members>
         <members>Error__c-es</members>
+        <members>Error__c-fr</members>
+        <members>Hierarchy_Settings__c-ca</members>
         <members>Hierarchy_Settings__c-en_US</members>
         <members>Hierarchy_Settings__c-es</members>
+        <members>Hierarchy_Settings__c-fr</members>
+        <members>Program_Enrollment__c-ca</members>
         <members>Program_Enrollment__c-en_US</members>
         <members>Program_Enrollment__c-es</members>
-        <members>Relationship_Auto_Create__c-en_US</members>
-        <members>Relationship_Auto_Create__c-es</members>
-        <members>Relationship_Lookup__c-en_US</members>
-        <members>Relationship_Lookup__c-es</members>
+        <members>Program_Enrollment__c-fr</members>
+        <members>Relationship__c-ca</members>
         <members>Relationship__c-en_US</members>
         <members>Relationship__c-es</members>
+        <members>Relationship__c-fr</members>
+        <members>Relationship_Auto_Create__c-ca</members>
+        <members>Relationship_Auto_Create__c-en_US</members>
+        <members>Relationship_Auto_Create__c-es</members>
+        <members>Relationship_Auto_Create__c-fr</members>
+        <members>Relationship_Lookup__c-ca</members>
+        <members>Relationship_Lookup__c-en_US</members>
+        <members>Relationship_Lookup__c-es</members>
+        <members>Relationship_Lookup__c-fr</members>
+        <members>Term__c-ca</members>
         <members>Term__c-en_US</members>
         <members>Term__c-es</members>
+        <members>Term__c-fr</members>
+        <members>Trigger_Handler__c-ca</members>
         <members>Trigger_Handler__c-en_US</members>
         <members>Trigger_Handler__c-es</members>
+        <members>Trigger_Handler__c-fr</members>
         <name>CustomObjectTranslation</name>
     </types>
     <types>
@@ -587,7 +647,9 @@
         <name>ListView</name>
     </types>
     <types>
+        <members>ca</members>
         <members>es</members>
+        <members>fr</members>
         <name>Translations</name>
     </types>
     <types>
